@@ -15,10 +15,18 @@ include_directories(
 
 if( BUILD_TESTS )
   include( simple_test )
+
+  macro( add_simplest_test NAME )
+    add_simple_test(${NAME} ${NAME}_test test/${NAME}_test.cpp )
+  endmacro()
   
   enable_testing()
-  add_simple_test( easy easy_test test/easy_test.cpp )
-  add_simple_test( count count_test test/count_test.cpp )
+  add_simplest_test( easy )
+  add_simplest_test( count )
+  add_simplest_test( base_types )
+  add_simplest_test( nth )
+  add_simplest_test( cons )
+  add_simplest_test( list )
 
   
 endif()

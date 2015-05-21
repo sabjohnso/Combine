@@ -1,5 +1,24 @@
+/** @file combine/nth.hpp
+
+    @brief A header file containing structure templates for
+    accessing the nth type in a collection of types.
+    
+    @author Samuel B. Johnson <sabjohnso@yahoo.com>
+
+ */
 #ifndef NTH_HPP_INCLUDED_1410731651909393077
 #define NTH_HPP_INCLUDED_1410731651909393077 1
+
+
+// Standard header files
+
+#include <cstddef>
+
+
+
+// Combine header files
+
+#include <combine/count.hpp>
 
 
 namespace Combine
@@ -24,9 +43,8 @@ namespace Combine
       determining the nth type in a template parameter list.
   */
   template<
-    template< typename ... > class Context,
     typename X,
-    typename Xs
+    typename ... Xs
     >
   struct Nth< 0, X, Xs ... >
   {
@@ -43,12 +61,12 @@ namespace Combine
   */
   template<
     size_t n,
-    template< typename ... > Context
+    template< typename ... > class Context,
     typename ... Xs >
-  struct Nth_in< Context< Xs ... >
+  struct Nth_in< n, Context< Xs ... > >
   {
     using type = typename Nth< n, Xs ... >::type;
-  }
+  };
 
 } // end of namespace Combine
 

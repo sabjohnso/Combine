@@ -1,0 +1,92 @@
+.TH "combine/macro_tools.hpp" 3 "Thu May 21 2015" "Version 0.1" "Combine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+combine/macro_tools.hpp \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBARG\fP(\&.\&.\&.)   __VA_ARGS__"
+.br
+.ti -1c
+.RI "#define \fBCOMBINE_QUOTE_AUX\fP(\&.\&.\&.)   #__VA_ARGS__"
+.br
+.ti -1c
+.RI "#define \fBCOMBINE_QUOTE\fP(\&.\&.\&.)   \fBCOMBINE_QUOTE_AUX\fP( __VA_ARGS__ )"
+.br
+.ti -1c
+.RI "#define \fBCOMBINE_MESSAGE_BOX\fP(TITLE,\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBCOMBINE_STATIC_ASSERT_TRUE\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBCOMBINE_STATIC_ASSERT_FALSE\fP(\&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBCOMBINE_STATIC_ASSERT_EQUAL\fP(A, B)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define ARG(\&.\&.\&.)   __VA_ARGS__"
+A macro for grouping text into a single macro argument\&. This macro is useful in cases where a single argument is being broken inappropriately: at the commas in a tempalate parameter list\&. 
+.SS "#define COMBINE_MESSAGE_BOX(TITLE, \&.\&.\&.)"
+\fBValue:\fP
+.PP
+.nf
+'\n\n'                                                                \
+  '\n*****************************************************************\n' \
+  TITLE                                                                 \
+  '\n-----------------------------------------------------------------\n\n' \
+  __VA_ARGS__                                                           \
+  '\n'                                                                  \
+  '\n-----------------------------------------------------------------\n\n'
+.fi
+.SS "#define COMBINE_QUOTE(\&.\&.\&.)   \fBCOMBINE_QUOTE_AUX\fP( __VA_ARGS__ )"
+A macro to surround its arguments in quotation marks\&. 
+.SS "#define COMBINE_QUOTE_AUX(\&.\&.\&.)   #__VA_ARGS__"
+An auxilliary macro that is used by COMBINE_QUOTE 
+.SS "#define COMBINE_STATIC_ASSERT_EQUAL(A, B)"
+\fBValue:\fP
+.PP
+.nf
+static_assert( ( A ) == ( B ),                                   \
+                 COMBINE_MESSAGE_BOX(                                   \
+                   'ASSERTION FAILURE',                                 \
+                   __FILE__ ':' COMBINE_QUOTE( __LINE__ )               \
+                   ':0 a static equality assertion failed: \n'          \
+                   COMBINE_QUOTE( A ) ' is not equal to '               \
+                   COMBINE_QUOTE( B ) ', as was asserted\&.' ))
+.fi
+.SS "#define COMBINE_STATIC_ASSERT_FALSE(\&.\&.\&.)"
+\fBValue:\fP
+.PP
+.nf
+static_assert( !( __VA_ARGS__ ),                                   \
+                   COMBINE_MESSAGE_BOX(                                 \
+                     'ASSERTION FAILURE'                                \
+                     __FILE__ ':' COMBINE_QUOTE( __LINE__ )             \
+                     ':0 static assertion failure:\n'                   \
+                     COMBINE_QUOTE( __VA_ARGS__ )                       \
+                     ' was asserted to be false, but it it true\&.\n' ))
+.fi
+.SS "#define COMBINE_STATIC_ASSERT_TRUE(\&.\&.\&.)"
+\fBValue:\fP
+.PP
+.nf
+static_assert( __VA_ARGS__ ,                                                \
+                   COMBINE_MESSAGE_BOX( 'ASSERTION FAILURE',            \
+                   __FILE__ ':' COMBINE_QUOTE( __LINE__ )               \
+                   ':0 static assertion failure:\n'                     \
+                   COMBINE_QUOTE( __VA_ARGS__ )                         \
+                   ' was asserted to be true, but it is false\&.\n' ))
+.fi
+A static assertion that prints the failed expression\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Combine from the source code\&.

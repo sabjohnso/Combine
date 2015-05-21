@@ -8,6 +8,16 @@
 #define TYPE_HPP_INCLUDED_657393024844779545 1
 
 
+// Standard header files
+
+#include <typeinfo>
+
+
+// Combine header files
+
+#include <combine/type.hpp>
+
+
 namespace Combine
 {
 
@@ -29,7 +39,52 @@ namespace Combine
 
 
   template< typename ... Xs >
-  struct Types;
+  struct Types
+  {};
+
+
+
+  struct Write_Types
+  {
+    
+    template< typename Stream, typename X, typename ... Xs >
+    Stream&
+    operator ()( Stream& s, Types< X, Xs ... > )
+    {
+      return s << '<' << Type< X >{}, aux( s, Types< X, Xs ... >{});
+    }
+
+  private:
+
+    template< typename Stream >
+    Stream& 
+    aux( Stream& s, Types<> )
+    {
+      return s << '>';
+    }
+
+    template< typename Stream, typename X, typename ... Xs >
+    Stream&
+    aux( Stream& s, Types< X, Xs ... > )
+    {
+      return s << ',' << Type< X >{} << aux( s,  Types< Xs ... >{} );
+    }
+  };
+
+  template< typename Stream, typename ... Xs >
+  Stream&
+  write_types( Stream& s, Types< Xs ... > )
+  {
+    return s << Write_Types()( s, Types< Xs ... >{} );
+  }
+
+
+  template< typename Stream, typename X, typename ... Xs >
+  Stream&
+  operator <<( Stream& s, Types< X, Xs ... > )
+  {
+    return s;
+  }
 
 
   

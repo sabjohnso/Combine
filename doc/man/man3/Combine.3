@@ -1,0 +1,46 @@
+.TH "Combine" 3 "Thu May 21 2015" "Version 0.1" "Combine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Combine \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBCount_types<>\fP"
+.br
+.ti -1c
+.RI "struct \fBCount_types< X, Xs\&.\&.\&. >\fP"
+.br
+.ti -1c
+.RI "struct \fBNth\fP"
+.br
+.ti -1c
+.RI "struct \fBNth< 0, X, Xs\&.\&.\&. >\fP"
+.br
+.ti -1c
+.RI "struct \fBType\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "template<typename\&.\&.\&. Xs> constexpr size_t \fBcount_types\fP ()"
+.br
+.ti -1c
+.RI "template<typename Stream , typename X > Stream & \fBoperator<<\fP (Stream &s, \fBType\fP< X >)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "template<typename\&.\&.\&. Xs> constexpr size_t Combine::count_types ()"
+
+.SS "template<typename Stream , typename X > Stream& Combine::operator<< (Stream &s, Type< X >)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Combine from the source code\&.
