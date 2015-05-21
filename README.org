@@ -1,0 +1,25 @@
+#+TITLE:Combine -- A harvested library 
+
+- Combine :: A harvesting maching that heads, threshes, and cleans
+             grain while moving over a fields
+             (http://www.merriam-webster.com/dictionary/combine).
+
+* Brief Description
+  This is a header library with common functionality harvested from
+  other projects.  There are a number of tests that can be built and
+  executed but otherwise not binaries need to be compiled.  The
+  library relies on the C++11 standard and is therefore only portable
+  to compilers that implement the C++11 standard.  The functionality
+  includes, but is not limited to
+  - application drivers
+  - exception handling
+  - template meta-programming tools
+  - static_assertions
+  - debugging tools
+
+
+
+
+
+
+
