@@ -98,7 +98,62 @@ namespace Combine
 
     using type = typename Aux< X, Nil >::type;
 
+  }; // end of struct reverse
+
+
+  template< typename X, typename Y >
+  struct Append
+  {
+    COMBINE_STATIC_ASSERT_TRUE( Listp< X >::value );
+    COMBINE_STATIC_ASSERT_TRUE( Listp< Y >::value );
+
+    template< typename Z, typename Accum >
+    struct Aux
+    {
+      COMBINE_STATIC_ASSERT_TRUE( Listp< Z >::value );
+      COMBINE_STATIC_ASSERT_TRUE( Listp< Accum >::value );
+      using type = typename Aux< typename Cdr< Z >::type, Cons< typename Car< Z >::type, Accum > >::type;
+    };
+
+    template< typename Accum >
+    struct Aux< Nil, Accum >
+    {
+      COMBINE_STATIC_ASSERT_TRUE( Listp< Accum >::value );
+      using type = Accum;
+    };
+    
+  }; // end of struct Append
+
+
+  template< size_t n, typename X >
+  struct Nth_list
+  {
+    COMBINE_STATIC_ASSERT_TRUE( Listp< X >::value );
+    COMBINE_STATIC_ASSERT_TRUE( Length< X >::value > n );
+
+    template< size_t m, typename Y >
+    struct Aux
+    {
+      COMBINE_STATIC_ASSERT_TRUE( Listp< Y >::value );
+      using type = typename Aux< m-1, typename Cdr< Y >::type >::type;
+    };
+
+    template< typename Y >
+    struct Aux< 0, Y >
+    {
+      COMBINE_STATIC_ASSERT_TRUE( Listp< Y >::value );
+      using type = typename Car< Y >::type;
+    };
+      
+    using type = typename Aux< n, X >::type;
+    
   };
+
+
+
+
+
+  
 
 } // end of namespace Combine
 
