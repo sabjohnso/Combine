@@ -12,8 +12,7 @@
     being broken inappropriately: at the commas in a tempalate
     parameter list.
  */
-#define ARG( ... ) __VA_ARGS__ 
-
+#define ARG( ... ) __VA_ARGS__
 
 
 /** An auxilliary macro that is used by COMBINE_QUOTE
@@ -73,13 +72,28 @@
 
 #define COMBINE_STATIC_ASSERT_SAME_TYPE( A, B )				\
   static_assert(							\
-    std::is_same<ARG( A ), B >::value,					\
+    std::is_same< A , B >::value,					\
     COMBINE_MESSAGE_BOX(						\
       "ASSERTION FAILURE",						\
       COMBINE_LOCATION()						\
       " a static type equality assertion failed: \n"			\
       COMBINE_QUOTE( A ) " is not the same type as "			\
       COMBINE_QUOTE( B ) ", as was asserted." ))
+
+
+#define COMBINE_STATIC_ASSERT_SAME_DECAY( A, B )			\
+  static_assert(							\
+    std::is_same< typename std::decay< A >::type,			\
+    typename std::decay< B >::type >::value,				\
+    COMBINE_MESSAGE_BOX(						\
+      "ASSERTION FAILURE",						\
+      COMBINE_LOCATION()						\
+      " a static type equality assertion failed: \n"			\
+      COMBINE_QUOTE( A ) " is not the same type as "			\
+      COMBINE_QUOTE( B ) ", as was asserted." ))
+
+  
+  
 
 
 

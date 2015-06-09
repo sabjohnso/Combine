@@ -10,6 +10,7 @@
 // Combine header files
 
 #include <combine/macro_tools.hpp>
+#include <combine/type.hpp>
 #include <combine/nil.hpp>
 
 
@@ -24,6 +25,15 @@ namespace Combine
     using cdr = Y;
   }; // end of struct Cons
 
+
+  template< typename Stream, typename X, typename Y >
+  Stream&
+  operator <<( Stream& s, Type< Cons< X, Y > > )
+  {
+    return s << "Cons< " << Type< X >{} << ", " << Type< Y >{} << " >";
+  }
+
+  
   template< typename >
   struct Consp
   {
@@ -38,22 +48,36 @@ namespace Combine
 
 
   
-  
-
-  template< typename X >
+  template< typename ... >
   struct Car
   {
-    COMBINE_STATIC_ASSERT_TRUE( Consp< X >::value );
-    using type = typename X::car;
+    using type = Nil;
   };
 
+  template< typename X, typename Y >
+  struct Car< Cons< X, Y > >
+  {
+    using type = X;
+  };
 
-  template< typename X >
+  
+
+  
+
+  template< typename ... >
   struct Cdr
   {
-    COMBINE_STATIC_ASSERT_TRUE( Consp< X >::value );
-    using type = typename X::cdr;
+    using type = Nil;
   };
+  
+  template< typename X, typename Y >
+  struct Cdr< Cons< X, Y > >
+  {
+    using type = Y;
+  };
+
+
+  
 
   template< typename X >
   struct Caar
@@ -71,6 +95,10 @@ namespace Combine
     COMBINE_STATIC_ASSERT_TRUE( Consp< typename Car< X >::type >::value );
     using type = typename X::car::cdr;
   };
+
+
+
+
 
 
   

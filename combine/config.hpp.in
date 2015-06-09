@@ -1,0 +1,52 @@
+/**
+   @file
+   config.hpp.in
+
+   @brief
+   UNDOCUMENTED
+
+   @author: 
+   Samuel Johnson <sabjohnso@yahoo.com>
+
+*/
+
+//
+// ... Combine header files
+//
+#include <combine/import.hpp>
+
+namespace Combine
+{
+  constexpr inline size_t
+  major_version()
+  {
+    return ${COMBINE_MAJOR_VERSION};
+  }
+
+  constexpr inline size_t
+  minor_version()
+  {
+    return ${COMBINE_MINOR_VERSION};
+  }
+
+  constexpr inline size_t
+  build_version()
+  {
+    return ${COMBINE_BUILD_VERSION};
+  }
+
+
+  constexpr inline size_t
+  version()
+  {
+    return make_tuple( major_version(), minor_version(), build_version );
+  }
+
+
+  
+
+  
+}
+
+
+

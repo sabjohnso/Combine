@@ -1,11 +1,13 @@
-/** @file test/count_test.cpp
+/** @file 
+    test/count_test.cpp
     
-    @brief Source file for a test type counting
+    @brief 
+    Source file for a test type counting
     functionality in the count.hpp header file.
 
-    @author Samuel B. Johnson <sabjohnso@yahoo.com>
- */
-
+    @author 
+    Samuel B. Johnson <sabjohnso@yahoo.com>
+*/
 
 // Combine header files
 
