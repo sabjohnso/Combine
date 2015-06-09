@@ -7,14 +7,20 @@
 * Brief Description
 
   This is a header library with common functionality harvested from
-  my other projects.  There are a number of tests that can be built and
-  executed but otherwise, no binaries need to be compiled.  The
-  library relies on the C++11 standard and is therefore only portable
-  to compilers that implement the C++11 standard.
+  my other projects, insightful blogs I encountered [fn:multiparadigm],
+  other open source projects and interesting stack exchanges. There
+  are a number of tests that can be built and executed but otherwise,
+  no binaries need to be compiled.  The library relies on the C++11
+  standard and is therefore  only portable to compilers that implement
+  the C++11 standard. 
 
 * Functionality Overview
+  - Partial function application
+  - Folds
+  - Generic constructors
 
-
+ [fn:multiparadigm: http://yapb-soc.blogspot.com]
+    
   
 
 
