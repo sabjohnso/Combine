@@ -1,7 +1,7 @@
 #+TITLE:Combine -- A harvested library 
 
 - Combine :: A harvesting maching that heads, threshes, and cleans
-             grain while moving over a fields
+             grain while moving over a field
              (http://www.merriam-webster.com/dictionary/combine).
 
 * Brief Description
@@ -14,33 +14,6 @@
 
 * Functionality Overview
 
-* Patterns
-
-#+NAME: Example function output through template parameter deduction
-#+BEGIN_SRC c++
-template< 
-  typename X
-  typename R = >
-
-#+END_SRC
-
-#+NAME:Recursion through inheritance  
-#+BEGIN_SRC c++
-template< @/parameter list/@ >
-struct MetaFun;
-
-template< @/termination parameters/@ >
-struct MetaFun< @/termination arguments/@ >
-{    
-  @/resulting representations ... /@
-};
-
-template< @/interate parameters@/ >
-struct MetFun< @/iterate template argumetns/@ >
-  : public MetaFun< @output template argumetns/@> 
-{}
-
-#+END_SRC
 
   
 
