@@ -16,6 +16,13 @@ namespace Combine
     constexpr static X value = x;
   };
 
+  using True = Datum< bool, true >;
+  using False = Datum< bool, false >;
+
+  using Zero = Datum< int, 0 >;
+  using One = Datum< int, 1 >;
+
+
 
   template< typename Stream, typename X, X x >
   Stream&
@@ -23,6 +30,9 @@ namespace Combine
   {
     return s << "Datum< " << Type< X >{} << ", " << x << " >";
   }
+
+
+
 
   
 } // end of namespace Combine

@@ -59,9 +59,33 @@ main( int argc, char** argv )
     COMBINE_STATIC_ASSERT_EQUAL( get< 2 >( a ), 3 );
     COMBINE_STATIC_ASSERT_EQUAL( get< 3 >( a ), 4 );
   }
-  
+
+
+  // Check the constructor constructor
+  {
+    using Combine::ContextXn;
+    using Combine::make_make;
+    constexpr auto array_ctx = ContextXn< std::array >();
+    constexpr auto array = make_make( array_ctx );
+    constexpr auto a = array( 1, 2, 3 );
+    COMBINE_STATIC_ASSERT_EQUAL( get< 0 >( a ), 1 );
+    COMBINE_STATIC_ASSERT_EQUAL( get< 1 >( a ), 2 );
+    COMBINE_STATIC_ASSERT_EQUAL( get< 2 >( a ), 3 );
+  }
+
+  // Check the constructor constructor
+  {
+    using Combine::ContextXs;
+    using Combine::make_make;
+    constexpr auto tuple_ctx = ContextXs< std::tuple >();
+    constexpr auto tuple = make_make( tuple_ctx );
+    constexpr auto a = tuple( 1, 2, 3 );
+    COMBINE_STATIC_ASSERT_EQUAL( get< 0 >( a ), 1 );
+    COMBINE_STATIC_ASSERT_EQUAL( get< 1 >( a ), 2 );
+    COMBINE_STATIC_ASSERT_EQUAL( get< 2 >( a ), 3 );
+  }      
+
   return 0;
 }
-
 
 

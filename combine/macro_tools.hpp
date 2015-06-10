@@ -92,6 +92,15 @@
       COMBINE_QUOTE( A ) " is not the same type as "			\
       COMBINE_QUOTE( B ) ", as was asserted." ))
 
+#define COMBINE_STATIC_ASSERT_ROUGHLY_EQUAL( A, B, TOL )	\
+  static_assert(						\
+    abs( A-B ) < TOL,						\
+    COMBINE_MESSAGE_BOX(					\
+      "ASSERTION FAILURE"					\
+      COMBINE_LOCATION()					\
+      " static assertion failure:\n"				\
+      COMBINE_QUOTE( A ) " is not rougly equal to "		\
+      COMBINE_QUOTE( B ) ", as was asserted."))
   
   
 

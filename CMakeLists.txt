@@ -22,7 +22,7 @@ if( NOT COMBINE_INSTALL_INCLUDE_DIR )
 endif()
 
 if( NOT COMBINE_INSTALL_DOC_DIR)
-  set( VTK_INSTALL_DOC_DIR share/doc/combine-${COMBINE_MAJOR_VERSION}-${COMBINE_MINOR_VERSION} )
+  set( COMBINE_INSTALL_DOC_DIR share/doc/combine-${COMBINE_MAJOR_VERSION}-${COMBINE_MINOR_VERSION} )
 endif()
 
 configure_file( 
@@ -37,8 +37,10 @@ include_directories(
 install( FILES 
   combine/base_types.hpp
   combine/cons.hpp
+  combine/context.hpp
   combine/count.hpp
   combine/datum.hpp
+  combine/fold.hpp
   combine/idx.hpp
   combine/import.hpp
   combine/list.hpp
@@ -46,13 +48,14 @@ install( FILES
   combine/make.hpp
   combine/nil.hpp
   combine/nth.hpp
+  combine/operator.hpp
+  combine/partial.hpp
+  combine/pow.hpp
   combine/select_with_sizeof.hpp
   combine/symbol.hpp
   combine/traits.hpp
   combine/type.hpp
-  combine/partial.hpp
-  combine/fold.hpp
-  combine/operator.hpp
+  combine/length.hpp
   DESTINATION ${COMBINE_INSTALL_INCLUDE_DIR} )
 
 install( FILES
@@ -76,7 +79,10 @@ if( BUILD_TESTS )
   add_simplest_test( datum )
   add_simplest_test( traits )
   add_simplest_test( make )
+  add_simplest_test( fold )
   add_simplest_test( operator )
+  add_simplest_test( pow )
+  add_simplest_test( length )
   add_simplest_test( meta_kanren )
   
 endif()

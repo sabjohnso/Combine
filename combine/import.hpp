@@ -17,15 +17,21 @@
 //
 // ... Standard header files
 //
+#include <utility>
+#include <cstddef>
 #include <tuple>
 #include <type_traits>
 
 
 namespace Combine
 {
+  using std::forward;
+  using std::get;
   using std::decay;
   using std::is_same;
   using std::make_tuple;
+
+  using std::size_t;
 
   
 } // end of namespace Combine

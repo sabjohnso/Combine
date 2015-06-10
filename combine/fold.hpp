@@ -15,7 +15,9 @@
 //
 // ... Combine header files
 //
+#include <combine/import.hpp>
 #include <combine/partial.hpp>
+#include <combine/datum.hpp>
 
 
 namespace Combine
@@ -27,16 +29,16 @@ namespace Combine
 
     template< typename A >
     constexpr auto
-    operator()( A&& a )
+    operator()( A&& a ) 
     {
-      return partialL( F(), std::forward< A >( a ));
+      return partialL( F(), forward< A >( a ));
     }
 
     template< typename A >
     constexpr auto
-    right( A&& a )
+    right( A&& a ) const
     {
-      return partialR( F(), std::forward< A >( a ));
+      return partialR( F(), forward< A >( a ));
     }
     
   };
@@ -50,24 +52,116 @@ namespace Combine
 
     template< typename A, typename B, typename C >
     constexpr auto
-    operator()( A&& a, B&& b, C&& c )
+    operator()( A&& a, B&& b, C&& c ) const
     {
-      return F{}( F{}( std::forward< A >( a ), std::forward< B >( b )), std::forward< C >( c ));
+      return F{}( F{}( forward< A >( a ), forward< B >( b )), forward< C >( c ));
     }
 
     template< typename A, typename B, typename C, typename D, typename ... Es >
     constexpr auto
-    operator()( A&&a, B&& b, C&& c, D&& d, Es&& ... es )
+    operator()( A&&a, B&& b, C&& c, D&& d, Es&& ... es ) const
     {
-      return ( *this( *this( std::forward< A >( a ),
-			     std::forward< B >( b ) ),
-		      std::forward< C >( c ),
-		      std::forward< D >( d ),
-		      std::forward< Es >( es ) ...));
+      return F{}( F{}( forward< A >( a ),
+		       forward< B >( b )),
+		  forward< C >( c ),
+		  forward< D >( d ),
+		  forward< Es >( es ) ... );
     }
 
   
   }; // end of struct FoldL
+
+
+
+  template< typename F >
+  struct FoldR : Binary< F >
+  {
+    using Binary< F >::operator();
+
+
+    template< typename A, typename B, typename C >
+    constexpr auto
+    operator ()( A&& a, B&& b, C&& c ) const
+    {
+      return F{}( std::forward<A>( a ), F{}( std::forward<B>( b ), std::forward<C>( c )));
+    }
+
+    template< typename A, typename B, typename C, typename D, typename ... Es >
+    constexpr auto
+    operator ()( A&&a , B&& b, C&& c, D&& d, Es&& ... es ) const
+    {
+      return F{}( forward<A>( a ),
+		  forward<B>( b ),
+		  F{}( forward<C>( c ), 
+		       forward<D>( d ), 
+		       forward<Es>( es ) ... ));
+    }
+
+  };
+
+  
+
+  template< typename F >
+  struct FoldDC : Binary< F >
+  {
+    using Binary< F >::operator();
+
+    template< typename A, typename B, typename C >
+    constexpr auto
+    operator ()( A&& a, B&& b, C&& c )
+    {
+      return F{}( F{}( forward<A>( a ), 
+		       forward<B>( b )),
+		  forward<C>( c ));
+    }
+
+    template< typename A, typename B, typename C, typename D, typename ... Es >
+    constexpr auto
+    operator()( A&& a, B&& b, C&& c, D&& d, Es&& ... es )
+    {
+      return aux( Datum< bool, count_types< A, B, C, D, Es ... >() % 2 == 0 >{},
+		  forward<A>( a ), forward<B>( b ), forward<C>( c ), forward<D>( d ),
+		  forward<Es>( es ) ... );
+    }
+
+  private:
+
+    
+    template< typename ... Xs >
+    constexpr auto
+    aux( True, Xs&& ... xs )
+    {
+      return aux_even( 
+	gen_Idx< count_types< Xs ... >()/2 >(),
+	make_tuple( forward< Xs >( xs ) ... ));
+    }
+
+
+    template< typename X, typename ... Xs >
+    constexpr auto
+    aux( False, X&& x, Xs&& ... xs )
+    {
+      return F{}( forward<X>( x ), 
+		  aux_even( gen_Idx< count_types< Xs ... >()/2 >(), 
+			    make_tuple( forward< Xs >( xs ) ... )));
+    }
+	
+	
+    
+
+    template< size_t ... indices, template< typename ... > class C, typename ... Xs >
+    constexpr auto
+    aux_even( Idx< indices ... >, C<Xs...>&& xs )
+    {
+      return F{}( F{}( get< indices >( xs ) ... ),
+		  F{}( get< indices+count_types<Xs ... >()/2 >( xs ) ... ));
+			  
+    }
+
+	  
+  };
+    
+			     
 
 
 
