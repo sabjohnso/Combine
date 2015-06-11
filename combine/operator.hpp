@@ -16,47 +16,50 @@
 //
 // ... Combine header files
 //
+#include <combine/import.hpp>
 #include <combine/fold.hpp>
 
 
 namespace Combine
 {
 
-  
-  struct Add : FoldL< Add >
+  template< typename Kernel, template< typename > class Fold >
+  struct Operator : Kernel, Fold< Operator< Kernel, Fold > >
   {
-  
-    using FoldL< Add >::operator();
-
-    template< typename A, typename B >
-    constexpr auto
-    operator ()( A&& a, B&& b )
-    {
-      return std::forward< A >( a )+std::forward< B >( b );
-    }
-
+    using Kernel::operator();
+    using Fold< Operator< Kernel, Fold > >::operator ();
   };
 
 
 
-  struct Multiply : FoldL< Multiply >
-  {
+#define X( op, name, ...  )						\
+  struct name##_kernel							\
+  {									\
+    template< typename A, typename B >					\
+    constexpr auto							\
+    operator ()( A&& a, B&& b ) const					\
+    {									\
+      return forward<A>( a ) op forward<B>( b );			\
+    }									\
+  }
+#include <combine/infix_operator_list.def>
+#undef X
+
+
+#define X( op, name, fold_suffix, ... ) using name = Operator< name##_kernel, Fold##fold_suffix >;
+#include <combine/infix_operator_list.def>
+#undef X
+
   
-    using FoldL< Multiply >::operator();
-
-    template< typename A, typename B >
-    constexpr auto
-    operator ()( A&& a, B&& b )
-    {
-      return std::forward< A >( a )*std::forward< B >( b );
-    }
-
-  };
-
+  
 
   
-  constexpr auto sum = Add{};
-  constexpr auto product = Multiply{};
+  constexpr auto sum = Addition{};
+
+  constexpr auto product = Multiplication{};
+  constexpr auto subtract = Subtraction{};
+  constexpr auto divide = Division{};
+
   
 
   

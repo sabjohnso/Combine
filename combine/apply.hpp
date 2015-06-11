@@ -3,30 +3,22 @@
    apply.hpp
 
    @brief
-   UNDOCUMENTED
-
-   @copyright	
-   2015 Halliburton Energy Services, Inc.
+   Apply a function with arguments taken from a
+   collection.
 
    @author: 
-   Samuel Johnson <samuel.johnson@halliburton.com>
-
- This is a CONFIDENTIAL document.
-Neither the whole or any part of this document may
-be reproduced, stored in any retrieval system or
-transmitted in any form or by any means (electronic,
-mechanical, reprographic, recording or otherwise)
-without the prior consent of the copyright owner.
+   Samuel Johnson <sabjohnso@yahoo.com>
 */
-
-
 #ifndef APPLY_HPP_INCLUDED_995287732558119082
 #define APPLY_HPP_INCLUDED_995287732558119082
 
 //
 // ... Combine header files
 //
+#include <combine/import.hpp>
 #include <combine/idx.hpp>
+#include <combine/length.hpp>
+
 
 namespace Combine
 {
@@ -37,14 +29,30 @@ namespace Combine
     constexpr auto 
     operator ()( F&& f, Xs&& xs )
     {
-      return aux( gen_Idx< length( xs ) >(), forward<f>( f ), forwar<Xs>( xs ));
+      return aux( gen_Idx< length<Xs>() >(), forward<F>( f ) , forward<Xs>( xs ));
     }
+
+    
+    template< typename F, typename Xs >
+    constexpr auto 
+    operator ()( const F& f, const Xs& xs )
+    {
+      return aux( gen_Idx< length<Xs>() >(), f,  xs );
+    }
+    
   private:
 
     template< size_t ... indices, typename F, typename Xs >
     constexpr auto
-    aux( Idx< indices
-  }
+    aux( Idx< indices ... > , F&& f, Xs&& xs )
+    {
+      return f( get< indices >( xs ) ... );
+    }
+  };
+
+  constexpr static auto apply = Apply{};
+
+  
   
 } // end of namespace Combine
 

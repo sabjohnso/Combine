@@ -34,15 +34,18 @@ include_directories(
   ${CMAKE_CURRENT_BINARY_DIR} )
 
 
-install( FILES 
+install( FILES
+  combine/apply.hpp
   combine/base_types.hpp
   combine/cons.hpp
   combine/context.hpp
   combine/count.hpp
   combine/datum.hpp
   combine/fold.hpp
+  combine/funcall.hpp
   combine/idx.hpp
   combine/import.hpp
+  combine/length.hpp
   combine/list.hpp
   combine/macro_tools.hpp
   combine/make.hpp
@@ -55,7 +58,6 @@ install( FILES
   combine/symbol.hpp
   combine/traits.hpp
   combine/type.hpp
-  combine/length.hpp
   DESTINATION ${COMBINE_INSTALL_INCLUDE_DIR} )
 
 install( FILES
@@ -66,24 +68,25 @@ install( FILES
 
 if( BUILD_TESTS )
   enable_testing()
-  
+
   include( simple_test )
 
-  add_simplest_test( easy )
-  add_simplest_test( count )
+  add_simplest_test( apply )
   add_simplest_test( base_types )
-  add_simplest_test( nth )
+  add_simplest_test( count )
   add_simplest_test( cons )
-  add_simplest_test( list )
-  add_simplest_test( idx )
   add_simplest_test( datum )
-  add_simplest_test( traits )
-  add_simplest_test( make )
+  add_simplest_test( easy )
   add_simplest_test( fold )
+  add_simplest_test( funcall )
+  add_simplest_test( idx )
+  add_simplest_test( list )
+  add_simplest_test( make )
+  add_simplest_test( nth )
   add_simplest_test( operator )
   add_simplest_test( pow )
+  add_simplest_test( traits )
   add_simplest_test( length )
-  add_simplest_test( meta_kanren )
   
 endif()
 

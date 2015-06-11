@@ -25,6 +25,7 @@
 
 namespace Combine
 {
+  using std::remove_cv;
   using std::forward;
   using std::get;
   using std::decay;

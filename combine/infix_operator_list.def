@@ -1,0 +1,5 @@
+X( +, Addition, DC, _ );
+X( -, Subtraction, L, _ );
+X( *, Multiplication, DC, _ );
+X( /, Division, L, _ );
+X( %, Modulous, L, _ );
