@@ -42,6 +42,16 @@ namespace Combine
     {
       return R{ std::forward< Xs >( xs ) ... };
     }
+    
+    // template< 
+    //   typename ... Xs,
+    //   typename R = T< typename decay< Xs >::type ... >
+    //   >
+    // constexpr R
+    // operator ()( const Xs& ... xs ) const
+    // {
+    //   return R{ xs ... };
+    // }
   };
 
 
@@ -62,6 +72,23 @@ namespace Combine
       
       return R{ std::forward< X >( x ), std::forward< Xs >( xs ) ... };
     }
+
+    template< 
+      typename X,
+      typename ... Xs,
+      typename R = T< typename decay< X >::type, count_types< X, Xs ... >() >
+      >
+    constexpr R
+    operator ()( const X& x, const Xs& ... xs ) const
+    {
+      static_assert(
+	is_homogeneous< X, Xs ... >::value,
+	"The arguments to the MakeXn constructor must all have the same type." );
+      
+      return R{ x, xs ... };
+    }
+
+    
   };
 
   template< template< typename ... > class T >
@@ -74,6 +101,17 @@ namespace Combine
       >
     constexpr R
     operator ()( X&& x, Xs&& ... xs ) const
+    {
+      return R{ std::forward< X >( x ), std::forward< Xs >( xs ) ... };
+    }
+
+    template<
+      typename X,
+      typename ... Xs,
+      typename R = T< typename decay< X >::type >
+      >
+    constexpr R
+    operator ()( const X& x, const Xs& ... xs ) const
     {
       return R{ std::forward< X >( x ), std::forward< Xs >( xs ) ... };
     }
@@ -133,7 +171,7 @@ namespace Combine
       typename ... Xs
       >
     constexpr auto
-    operator()( T< Xs ... >&& ) const noexcept
+    operator()( T< Xs ... > ) const noexcept
     {
       return xs< T >();
     }
@@ -144,7 +182,7 @@ namespace Combine
       size_t n
       >
     constexpr auto
-    operator()( T< X, n >&& ) const
+    operator()( T< X, n > ) const noexcept
     {
       return xn< T >();
     }

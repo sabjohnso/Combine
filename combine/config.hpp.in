@@ -36,10 +36,10 @@ namespace Combine
   }
 
 
-  constexpr inline size_t
+  constexpr inline auto
   version()
   {
-    return make_tuple( major_version(), minor_version(), build_version );
+    return make_tuple( major_version(), minor_version(), build_version() );
   }
 
 

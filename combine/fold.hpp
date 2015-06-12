@@ -100,7 +100,8 @@ namespace Combine
   };
 
   
-
+  /** Fold using a divide an conquere method
+   */
   template< typename F >
   struct FoldDC : Binary< F >
   {
@@ -126,7 +127,6 @@ namespace Combine
 
   private:
 
-    
     template< typename ... Xs >
     constexpr auto
     aux( True, Xs&& ... xs )
@@ -136,7 +136,6 @@ namespace Combine
 	make_tuple( forward< Xs >( xs ) ... ));
     }
 
-
     template< typename X, typename ... Xs >
     constexpr auto
     aux( False, X&& x, Xs&& ... xs )
@@ -145,9 +144,6 @@ namespace Combine
 		  aux_even( gen_Idx< count_types< Xs ... >()/2 >(), 
 			    make_tuple( forward< Xs >( xs ) ... )));
     }
-	
-	
-    
 
     template< size_t ... indices, template< typename ... > class C, typename ... Xs >
     constexpr auto
@@ -159,7 +155,7 @@ namespace Combine
     }
 
 	  
-  };
+  }; // end of struct FoldDC
     
 			     
 

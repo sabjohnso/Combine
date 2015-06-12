@@ -10,9 +10,12 @@
 namespace Combine
 {
 
+  /** A class template to map integral values to types.
+   */
   template< typename X, X x >
   struct Datum
   {
+    using type = X;
     constexpr static X value = x;
   };
 

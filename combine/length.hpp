@@ -16,12 +16,13 @@
 //
 // ... Combine header files
 //
+#include <combine/import.hpp>
 #include <combine/count.hpp>
 
 namespace Combine
 {
 
-  template< typename X >
+  template< typename >
   struct Length;
 
   template< 
@@ -42,13 +43,15 @@ namespace Combine
   {
     constexpr static size_t value = count_types< Xs ... >();
   };
+
+
   
   
   template< typename X >
   constexpr auto
   length()
   {
-    return Length<X>::value;
+    return Length<typename decay< X >::type >::value;
   }
 
   

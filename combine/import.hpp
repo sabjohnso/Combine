@@ -30,7 +30,10 @@ namespace Combine
   using std::get;
   using std::decay;
   using std::is_same;
+  using std::make_pair;
   using std::make_tuple;
+  using std::pair;
+  using std::tuple;
 
   using std::size_t;
 

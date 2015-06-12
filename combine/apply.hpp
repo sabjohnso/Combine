@@ -25,29 +25,40 @@ namespace Combine
 
   struct Apply
   {
+
+    
     template< typename F, typename Xs >
     constexpr auto 
-    operator ()( F&& f, Xs&& xs )
+    operator ()( const F& f, const Xs& xs ) const
     {
-      return aux( gen_Idx< length<Xs>() >(), forward<F>( f ) , forward<Xs>( xs ));
+      return aux( gen_Idx< length<Xs>() >(), f,  xs );
     }
 
     
     template< typename F, typename Xs >
     constexpr auto 
-    operator ()( const F& f, const Xs& xs )
+    operator ()( F&& f, Xs&& xs ) const
     {
-      return aux( gen_Idx< length<Xs>() >(), f,  xs );
+      return aux( gen_Idx< length<Xs>() >(), forward<F>( f ) , forward<Xs>( xs ));
     }
     
   private:
 
     template< size_t ... indices, typename F, typename Xs >
     constexpr auto
-    aux( Idx< indices ... > , F&& f, Xs&& xs )
+    aux( Idx< indices ... > , F&& f, Xs&& xs ) const
+    {
+      return f( get< indices >( forward<Xs>( xs )) ... );
+    }
+
+    
+    template< size_t ... indices, typename F, typename Xs >
+    constexpr auto
+    aux( Idx< indices ... > , const F& f, const Xs& xs ) const
     {
       return f( get< indices >( xs ) ... );
     }
+    
   };
 
   constexpr static auto apply = Apply{};

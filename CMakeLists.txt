@@ -37,13 +37,18 @@ include_directories(
 install( FILES
   combine/apply.hpp
   combine/base_types.hpp
+  combine/combine.hpp
+  ${CMAKE_CURRENT_BINARY_DIR}/combine/config.hpp
   combine/cons.hpp
+  combine/composite.hpp
   combine/context.hpp
   combine/count.hpp
   combine/datum.hpp
   combine/fold.hpp
   combine/funcall.hpp
+  combine/get.hpp
   combine/idx.hpp
+  combine/infix_operator_list.def
   combine/import.hpp
   combine/length.hpp
   combine/list.hpp
@@ -55,8 +60,10 @@ install( FILES
   combine/partial.hpp
   combine/pow.hpp
   combine/select_with_sizeof.hpp
+  combine/simple.hpp
   combine/symbol.hpp
   combine/traits.hpp
+  combine/transpose.hpp
   combine/type.hpp
   DESTINATION ${COMBINE_INSTALL_INCLUDE_DIR} )
 
@@ -73,19 +80,23 @@ if( BUILD_TESTS )
 
   add_simplest_test( apply )
   add_simplest_test( base_types )
-  add_simplest_test( count )
+  add_simplest_test( composite )
   add_simplest_test( cons )
+  add_simplest_test( count )
   add_simplest_test( datum )
   add_simplest_test( easy )
   add_simplest_test( fold )
   add_simplest_test( funcall )
+  add_simplest_test( get )
   add_simplest_test( idx )
   add_simplest_test( list )
   add_simplest_test( make )
   add_simplest_test( nth )
   add_simplest_test( operator )
   add_simplest_test( pow )
+  add_simplest_test( simple )
   add_simplest_test( traits )
+  add_simplest_test( transpose )
   add_simplest_test( length )
   
 endif()

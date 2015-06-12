@@ -19,6 +19,13 @@ namespace Combine
     {
       return f( forward< Xs >( xs ) ... );
     }
+
+    template< typename F, typename ... Xs >
+    constexpr auto
+    operator ()( const F& f, const Xs& ... xs )
+    {
+      return f( xs ... );
+    }
     
   }; // end of struct Funcall
 
