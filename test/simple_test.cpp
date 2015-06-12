@@ -61,6 +61,10 @@ main( int argc, char** argv )
 
   constexpr auto  y = array3<double>{1.0,2.0,3.0};
 
+  COMBINE_STATIC_ASSERT_EQUAL( y[ 0 ], 1.0 );
+  COMBINE_STATIC_ASSERT_EQUAL( y[ 1 ], 2.0 );
+  COMBINE_STATIC_ASSERT_EQUAL( y[ 2 ], 3.0 );
+
   return 0;
 }
 

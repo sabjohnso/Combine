@@ -32,6 +32,13 @@ main( int argc, char** argv )
     constexpr auto b = transpose( a );
     constexpr auto c = transpose( make_tuple( make_tuple( 1, 2, 3 ), make_tuple(4, 5, 6 )));
 
+    COMBINE_STATIC_ASSERT_EQUAL( 1, get<0>(get<0>( b )));
+    COMBINE_STATIC_ASSERT_EQUAL( get<0>(get<0>( b )), get<0>(get<0>( a )));
+    COMBINE_STATIC_ASSERT_EQUAL( get<0>(get<1>( b )), get<1>(get<0>( a )));
+    COMBINE_STATIC_ASSERT_EQUAL( get<1>(get<0>( b )), get<0>(get<1>( a )));
+    COMBINE_STATIC_ASSERT_EQUAL( get<1>(get<1>( b )), get<1>(get<1>( a )));
+    
+
     COMBINE_STATIC_ASSERT_EQUAL( 1, get<0>(get<0>( c )));
     COMBINE_STATIC_ASSERT_EQUAL( get<0>(get<0>( c )), get<0>(get<0>( a )));
     COMBINE_STATIC_ASSERT_EQUAL( get<0>(get<1>( c )), get<1>(get<0>( a )));

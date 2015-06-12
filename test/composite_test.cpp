@@ -102,7 +102,9 @@ main( int argc, char** argv )
 
   COMBINE_STATIC_ASSERT_EQUAL( 4, twice( 2 ));
   
-  constexpr auto twice_ = quark( add, dup );
+  constexpr auto twice_again = quark( add, dup );
+
+  COMBINE_STATIC_ASSERT_EQUAL( 8, twice_again( 4 ));
 
   
 
