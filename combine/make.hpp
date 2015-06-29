@@ -1,4 +1,5 @@
 /**
+
    @file
    make.hpp
 
@@ -7,8 +8,6 @@
 
    @author: 
    Samuel Johnson <sabjohnso@yahoo.com>
-   
-   @ref
    
 */
 
@@ -43,18 +42,13 @@ namespace Combine
       return R{ std::forward< Xs >( xs ) ... };
     }
     
-    // template< 
-    //   typename ... Xs,
-    //   typename R = T< typename decay< Xs >::type ... >
-    //   >
-    // constexpr R
-    // operator ()( const Xs& ... xs ) const
-    // {
-    //   return R{ xs ... };
-    // }
   };
 
 
+
+  /** A generic constructor for contexts similar to std::array:
+      a fixed size collection with values of the same type.
+   */
   template< template< typename, size_t > class T >
   struct MakeXn
   {
@@ -66,31 +60,18 @@ namespace Combine
     constexpr R
     operator ()( X&& x, Xs&& ... xs ) const
     {
-      static_assert(
-	is_homogeneous< X, Xs ... >::value,
-	"The arguments to the MakeXn constructor must all have the same type." );
-      
+      static_assert( is_homogeneous< X, Xs ... >::value, 
+		     "The arguments to the MakeXn constructor must all have the same type." );	
       return R{ std::forward< X >( x ), std::forward< Xs >( xs ) ... };
     }
+  }; // end of struct MakeXn
 
-    template< 
-      typename X,
-      typename ... Xs,
-      typename R = T< typename decay< X >::type, count_types< X, Xs ... >() >
-      >
-    constexpr R
-    operator ()( const X& x, const Xs& ... xs ) const
-    {
-      static_assert(
-	is_homogeneous< X, Xs ... >::value,
-	"The arguments to the MakeXn constructor must all have the same type." );
-      
-      return R{ x, xs ... };
-    }
 
-    
-  };
 
+  
+  /** A generic constructor for contexts similar to std::vector:
+      a collection of values with a homogeneous type.
+  */
   template< template< typename ... > class T >
   struct MakeX
   {
@@ -104,22 +85,11 @@ namespace Combine
     {
       return R{ std::forward< X >( x ), std::forward< Xs >( xs ) ... };
     }
-
-    template<
-      typename X,
-      typename ... Xs,
-      typename R = T< typename decay< X >::type >
-      >
-    constexpr R
-    operator ()( const X& x, const Xs& ... xs ) const
-    {
-      return R{ std::forward< X >( x ), std::forward< Xs >( xs ) ... };
-    }
   };
   
 
-
-  /** A generic constructor constructor
+  
+  /** A generic constructor for generic constructors.
    */
   struct MakeMake
   {

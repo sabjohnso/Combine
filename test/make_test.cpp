@@ -15,6 +15,12 @@
 #include <utility>
 #include <tuple>
 #include <array>
+#include <vector>
+#include <list>
+#include <stack>
+#include <queue>
+#include <deque>
+#include <map>
 
 //
 // ... Combine header files
@@ -25,7 +31,6 @@
 
 constexpr auto pair  = Combine::MakeXs< std::pair >();
 constexpr auto tuple = Combine::MakeXs< std::tuple >();
-
 constexpr auto array = Combine::MakeXn< std::array >();
 
 
@@ -61,6 +66,7 @@ main( int argc, char** argv )
   }
 
 
+
   // Check the constructor constructor
   {
     using Combine::ContextXn;
@@ -83,7 +89,28 @@ main( int argc, char** argv )
     COMBINE_STATIC_ASSERT_EQUAL( get< 0 >( a ), 1 );
     COMBINE_STATIC_ASSERT_EQUAL( get< 1 >( a ), 2 );
     COMBINE_STATIC_ASSERT_EQUAL( get< 2 >( a ), 3 );
-  }      
+  }
+
+
+
+
+
+
+  
+  // Check the vector constructor (only available at run time)
+  {
+    constexpr auto vector = Combine::MakeX<std::vector>{};
+    auto v = vector( 1, 2, 3, 4 );
+
+    COMBINE_TEST_EQUAL( v[ 0 ], 1 );
+    COMBINE_TEST_EQUAL( v[ 1 ], 2 );
+    COMBINE_TEST_EQUAL( v[ 2 ], 3 );
+    COMBINE_TEST_EQUAL( v[ 3 ], 4 );
+    
+  }
+  
+
+  
 
   return 0;
 }

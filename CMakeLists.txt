@@ -46,6 +46,9 @@ install( FILES
   combine/context.hpp
   combine/count.hpp
   combine/datum.hpp
+  combine/driver.hpp
+  combine/error_signal.hpp
+  combine/exception_handler.hpp
   combine/fold.hpp
   combine/funcall.hpp
   combine/get.hpp
@@ -86,13 +89,16 @@ if( BUILD_TESTS )
   add_simplest_test( cons )
   add_simplest_test( count )
   add_simplest_test( datum )
+  add_simplest_test( driver )
   add_simplest_test( easy )
+  add_simplest_test( exception_handler )
   add_simplest_test( fold )
   add_simplest_test( funcall )
   add_simplest_test( get )
   add_simplest_test( idx )
   add_simplest_test( list )
   add_simplest_test( make )
+  add_simplest_test( mdarray )
   add_simplest_test( nth )
   add_simplest_test( operator )
   add_simplest_test( pow )

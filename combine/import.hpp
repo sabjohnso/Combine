@@ -17,9 +17,12 @@
 //
 // ... Standard header files
 //
+#include <stdexcept>
+#include <iostream>
 #include <utility>
 #include <cstddef>
 #include <tuple>
+#include <array>
 #include <type_traits>
 
 
@@ -29,11 +32,19 @@ namespace Combine
   using std::forward;
   using std::get;
   using std::decay;
+  using std::declval;
   using std::is_same;
   using std::make_pair;
   using std::make_tuple;
   using std::pair;
   using std::tuple;
+  using std::cerr;
+  using std::endl;
+  using std::exception_ptr;
+  using std::exception;
+  using std::rethrow_exception;
+  using std::current_exception;
+
 
   using std::size_t;
 

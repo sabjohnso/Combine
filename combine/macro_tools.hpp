@@ -101,6 +101,15 @@
       " static assertion failure:\n"				\
       COMBINE_QUOTE( A ) " is not rougly equal to "		\
       COMBINE_QUOTE( B ) ", as was asserted."))
+
+
+#define COMBINE_TEST_EQUAL( A, B )			\
+  if( A != B ) do{					\
+    throw std::logic_error(				\
+      "A run-time test failed: \n"			\
+      COMBINE_QUOTE( A )  " != " COMBINE_QUOTE( B )	\
+      ", as was expected." );				\
+    } while( false )
   
   
 
