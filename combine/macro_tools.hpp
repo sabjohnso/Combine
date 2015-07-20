@@ -7,6 +7,11 @@
 #include <type_traits>
 
 
+// Combine header files
+
+#include <combine/import.hpp>
+
+
 /** A macro for grouping text into a single macro argument.
     This macro is useful in cases where a single argument is
     being broken inappropriately: at the commas in a tempalate
