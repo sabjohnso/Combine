@@ -118,7 +118,7 @@
 
 
 #define COMBINE_TEST_TRUE( ... )					\
-  if( ! A ) do{								\
+  if( ! __VA_ARGS__ ) do{								\
       throw std::logic_error(						\
 	COMBINE_MESSAGE_BOX(						\
 	  "TEST FAILURE",						\
