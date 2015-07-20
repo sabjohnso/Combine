@@ -115,7 +115,19 @@
       COMBINE_QUOTE( A )  " != " COMBINE_QUOTE( B )	\
       ", as was expected." );				\
     } while( false )
-  
+
+
+#define COMBINE_TEST_TRUE( ... )					\
+  if( ! A ) do{								\
+      throw std::logic_error(						\
+	COMBINE_MESSAGE_BOX(						\
+	  "TEST FAILURE",						\
+	  __FILE__ ":" COMBINE_QUOTE( __LINE__ )			\
+	  ":0 test failure:\n"						\
+	  COMBINE_QUOTE( __VA_ARGS__ )					\
+	  " was asserted to be true, but it is false.\n" ));		\
+    } while( false )							\
+      
   
 
 
