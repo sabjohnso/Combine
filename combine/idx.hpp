@@ -168,6 +168,15 @@ namespace Combine
     constexpr static size_t value = index*Product_Idx< indices ... >::value;
   };
 
+  template< typename >
+  struct Product_of_Idx;
+
+  template< size_t ... indices >
+  struct Product_of_Idx< Idx<indices ...> >
+  {
+    constexpr static size_t value = Product_Idx<indices ... >::value;
+  };
+
   template< size_t, typename >
   struct Scale_Idx;
 
