@@ -37,6 +37,12 @@ namespace Combine
   {
     constexpr static bool value = false;
   };
+
+  template< size_t ... indices >
+  struct Is_Idx< Idx<indices ...> >
+  {
+    constexpr static bool value = true;
+  };
   
 
   template< size_t, size_t ... >
