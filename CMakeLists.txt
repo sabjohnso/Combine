@@ -1,8 +1,6 @@
 cmake_minimum_required( VERSION 2.8.4 )
 project( COMBINE )
 
-set( CMAKE_CXX_FLAGS "-std=c++1y -Wall -Werror" )
-
   
 #
 # ... Options
@@ -37,6 +35,7 @@ include_directories(
 
 
 install( FILES
+  combine/affix.hpp
   combine/apply.hpp
   combine/base_types.hpp
   combine/combine.hpp
@@ -47,6 +46,7 @@ install( FILES
   combine/count.hpp
   combine/datum.hpp
   combine/driver.hpp
+  combine/either.hpp
   combine/error_signal.hpp
   combine/exception_handler.hpp
   combine/fold.hpp
@@ -59,11 +59,13 @@ install( FILES
   combine/list.hpp
   combine/macro_tools.hpp
   combine/make.hpp
+  combine/multiple_value.hpp
   combine/nil.hpp
   combine/nth.hpp
   combine/operator.hpp
   combine/partial.hpp
   combine/pow.hpp
+  combine/property.hpp
   combine/select_with_sizeof.hpp
   combine/simple.hpp
   combine/symbol.hpp
@@ -80,9 +82,13 @@ install( FILES
 
 if( BUILD_TESTS )
   enable_testing()
+  
+  set( CMAKE_CXX_FLAGS "-std=c++14 -Wall -Werror" )
+
 
   include( simple_test )
 
+  add_simplest_test( affix )
   add_simplest_test( apply )
   add_simplest_test( base_types )
   add_simplest_test( composite )
@@ -91,6 +97,7 @@ if( BUILD_TESTS )
   add_simplest_test( datum )
   add_simplest_test( driver )
   add_simplest_test( easy )
+  add_simplest_test( either )
   add_simplest_test( exception_handler )
   add_simplest_test( fold )
   add_simplest_test( funcall )
@@ -98,14 +105,18 @@ if( BUILD_TESTS )
   add_simplest_test( idx )
   add_simplest_test( list )
   add_simplest_test( make )
+  add_simplest_test( maybe )
   add_simplest_test( mdarray )
+  add_simplest_test( multiple_value )
   add_simplest_test( nth )
   add_simplest_test( operator )
   add_simplest_test( pow )
+  add_simplest_test( property )
   add_simplest_test( simple )
   add_simplest_test( traits )
   add_simplest_test( transpose )
   add_simplest_test( length )
+  
   
 endif()
 

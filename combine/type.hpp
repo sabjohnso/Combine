@@ -15,8 +15,8 @@
 
 // Combine header files
 
-#include <combine/type.hpp>
-
+#include <combine/count.hpp>
+#include <combine/nth.hpp>
 
 namespace Combine
 {
@@ -40,7 +40,13 @@ namespace Combine
 
   template< typename ... Xs >
   struct Types
-  {};
+  {
+
+    constexpr static size_t size = count_types< Xs ... >();
+     
+    template< size_t index >
+    using type = typename Nth< index, Xs ... >::type;
+  };
 
 
 

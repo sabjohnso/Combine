@@ -31,6 +31,11 @@ namespace Combine
   {
     return s << "Nil";
   }
+
+
+  template< typename ... >
+  struct NilT : Nil
+  {};
   
 } // end of namespace Combine
 

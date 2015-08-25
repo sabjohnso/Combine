@@ -43,6 +43,21 @@ namespace Combine
     return Count_types< Xs ... >::value;
   }
 
+  template< typename X, X ... >
+  struct Count_values;
+
+  template< typename X >
+  struct Count_values< X >
+  {
+    constexpr static size_t value = 0;
+  };
+
+  template< typename X, X x, X ... xs >
+  struct Count_values< X, x, xs ... >
+  {
+    constexpr static size_t value = 1+Count_values<X, xs ... >::value;
+  };
+
   
 } // end of namespace Combine
 

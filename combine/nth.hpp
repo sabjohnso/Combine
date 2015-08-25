@@ -18,6 +18,7 @@
 
 // Combine header files
 
+#include <combine/macro_tools.hpp>
 #include <combine/count.hpp>
 
 
@@ -27,12 +28,18 @@ namespace Combine
   /** A structure template to determine the nth type is the 
       template parameter list.
    */
+  template< size_t n, typename ... Xs >
+  struct Nth;
+  
+  /** A structure template to determine the nth type is the 
+      template parameter list.
+   */
   template<
     size_t n,
     typename X,
     typename ... Xs
     >
-  struct Nth
+  struct Nth< n, X, Xs ... >
   {
     COMBINE_STATIC_ASSERT_TRUE( count_types< X, Xs ... >() > n );
     using type = typename Nth< n-1, Xs ... >::type;

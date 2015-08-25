@@ -26,9 +26,17 @@
 namespace Combine
 {
 
-  template< size_t ... >
+  template< size_t ... indices >
   struct Idx
-  {};
+  {
+    constexpr static size_t size = Count_values< size_t,  indices ... >::value;
+  };
+
+  template< typename X >
+  struct Is_Idx
+  {
+    constexpr static bool value = false;
+  };
   
 
   template< size_t, size_t ... >
@@ -159,6 +167,31 @@ namespace Combine
   {
     constexpr static size_t value = index*Product_Idx< indices ... >::value;
   };
+
+  template< size_t, typename >
+  struct Scale_Idx;
+
+  template< size_t s, size_t ... indices >
+  struct Scale_Idx< s, Idx< indices ... > >
+  {
+    using type = Idx< 2*indices ... >;
+  };
+
+  template< typename, typename, size_t ... >
+  struct Add_Idx;
+
+
+  template< size_t ... indices >
+  struct Add_Idx< Idx<>, Idx<>, indices ... >
+  {
+    using type = Idx< indices ... >;
+  };
+
+  template< size_t index_x, size_t ... indices_x, size_t index_y, size_t ... indices_y, size_t ... indices_xy >
+  struct Add_Idx< Idx< index_x, indices_x ... >, Idx< index_y, indices_y ... >, indices_xy ... >
+    : Add_Idx< Idx<indices_x ...>, Idx<indices_y ... >, indices_xy ..., index_x+index_y >
+  {};
+
   
 
   template< size_t ... indices >
@@ -169,6 +202,7 @@ namespace Combine
   }
 
 
+  
   template< size_t n, size_t ... >
   struct Nth_Idx;
 

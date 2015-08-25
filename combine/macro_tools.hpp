@@ -29,6 +29,10 @@
  */
 #define COMBINE_QUOTE( ... ) COMBINE_QUOTE_AUX( __VA_ARGS__ )
 
+#define COMBINE_PRINT_EXPR( os, ... )		\
+  os << COMBINE_QUOTE( __VA_ARGS__ ) << "\n"	\
+  << "\t>>---> " << ( __VA_ARGS__ ) << "\n"
+
 
 #define COMBINE_MESSAGE_BOX( TITLE, ... )				\
   "\n\n"								\
@@ -118,7 +122,7 @@
 
 
 #define COMBINE_TEST_TRUE( ... )					\
-  if( ! __VA_ARGS__ ) do{								\
+  if( ! (__VA_ARGS__) ) do{						\
       throw std::logic_error(						\
 	COMBINE_MESSAGE_BOX(						\
 	  "TEST FAILURE",						\
@@ -126,8 +130,18 @@
 	  ":0 test failure:\n"						\
 	  COMBINE_QUOTE( __VA_ARGS__ )					\
 	  " was asserted to be true, but it is false.\n" ));		\
-    } while( false )							\
+    } while( false )
       
+#define COMBINE_TEST_FALSE( ... )					\
+  if(  __VA_ARGS__ ) do{						\
+      throw std::logic_error(						\
+	COMBINE_MESSAGE_BOX(						\
+	  "TEST FAILURE",						\
+	  __FILE__ ":" COMBINE_QUOTE( __LINE__ )			\
+	  ":0 test failure:\n"						\
+	  COMBINE_QUOTE( __VA_ARGS__ )					\
+	  " was asserted to be false, but it is true.\n" ));		\
+    } while( false )
   
 
 

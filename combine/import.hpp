@@ -23,7 +23,9 @@
 #include <cstddef>
 #include <tuple>
 #include <array>
+#include <algorithm>
 #include <type_traits>
+#include <functional>
 
 
 namespace Combine
@@ -32,8 +34,13 @@ namespace Combine
   using std::forward;
   using std::get;
   using std::decay;
+  using std::make_signed;
   using std::declval;
   using std::is_same;
+  using std::is_function;
+  using std::result_of;
+
+
   using std::make_pair;
   using std::make_tuple;
   using std::pair;
@@ -44,11 +51,15 @@ namespace Combine
   using std::exception;
   using std::rethrow_exception;
   using std::current_exception;
+  using std::logic_error;
+  using std::ostream;
+  using std::istream;
 
+  using std::copy;
 
   using std::size_t;
 
-  
+  using std::function;  
 } // end of namespace Combine
 
 
