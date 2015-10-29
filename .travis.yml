@@ -1,0 +1,15 @@
+language: cpp
+
+compiler:
+  - g++
+  - clang++
+
+script:
+  - mkdir build
+  - cd build
+  - cmake -CMAKE_BUILD_TYPE=Release ..
+  - make && make test
+  
+os:
+  - linux
+  - osx
