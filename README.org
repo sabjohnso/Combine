@@ -5,7 +5,7 @@
              (http://www.merriam-webster.com/dictionary/combine).
 
 #+CAPTION: Build Status
-[[https://travis-ci.org/sabjohnso/Combine][https://travis-ci.org/sabjohnso/Combine.jl.svg?branch=master]]
+[[https://travis-ci.org/sabjohnso/Combine][https://travis-ci.org/sabjohnso/Combine.svg?branch=master]
 
 
 
