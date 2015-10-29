@@ -15,14 +15,14 @@ namespace Combine
   {
     template< typename F, typename ... Xs >
     constexpr auto
-    operator()( F&& f, Xs&& ... xs )
+    operator()( F&& f, Xs&& ... xs ) const
     {
       return f( forward< Xs >( xs ) ... );
     }
 
     template< typename F, typename ... Xs >
     constexpr auto
-    operator ()( const F& f, const Xs& ... xs )
+    operator ()( const F& f, const Xs& ... xs ) const
     {
       return f( xs ... );
     }

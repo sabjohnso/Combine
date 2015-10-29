@@ -38,7 +38,7 @@ namespace Combine
       typename ... Ys
       >
     constexpr auto 
-    operator()( Co< Ci<Xs ... >, Ys ... >&& xs )
+    operator()( Co< Ci<Xs ... >, Ys ... >&& xs ) const
     {
       static_assert( 
 	is_homogeneous< 
@@ -57,7 +57,7 @@ namespace Combine
       typename ... Ys
       >
     constexpr auto 
-    operator()( const Co< Ci<Xs ... >, Ys ... >& xs )
+    operator()( const Co< Ci<Xs ... >, Ys ... >& xs ) const
     {
       static_assert( 
 	is_homogeneous< 
@@ -76,7 +76,7 @@ namespace Combine
       size_t n
       >
     constexpr auto
-    operator ()( Co< Ci<X,n>, m >&& xs )
+    operator ()( Co< Ci<X,n>, m >&& xs ) const
     {
       return aux0( gen_Idx< n >(), MakeXn<Ci>{}, MakeXn<Co>{}, forward< Co< Ci<X,n>, m > >( xs ));
     }
@@ -90,7 +90,7 @@ namespace Combine
       size_t n
       >
     constexpr auto
-    operator ()( const Co< Ci<X,n>, m >& xs )
+    operator ()( const Co< Ci<X,n>, m >& xs ) const
     {
       return aux0( gen_Idx< n >(), MakeXn<Ci>{}, MakeXn<Co>{}, xs );
     }
@@ -99,7 +99,7 @@ namespace Combine
     
     template< size_t ... indices, typename MakeI, typename MakeO, typename Xs >
     constexpr auto
-    aux0( Idx< indices ... >, MakeI&& makei, MakeO&& makeo, Xs&& xs )
+    aux0( Idx< indices ... >, MakeI&& makei, MakeO&& makeo, Xs&& xs ) const
     {
       return makei( apply( MakeXs<StrangeComposite>{}( makeo, getget<indices>() ), forward<Xs>( xs )) ... );
     }
@@ -107,7 +107,7 @@ namespace Combine
     
     template< size_t ... indices, typename MakeI, typename MakeO, typename Xs >
     constexpr auto
-    aux0( Idx< indices ... >, MakeI&& makei, MakeO&& makeo, const Xs& xs )
+    aux0( Idx< indices ... >, MakeI&& makei, MakeO&& makeo, const Xs& xs ) const
     {
       return makei( apply( MakeXs<StrangeComposite>{}( makeo, getget<indices>() ), xs ) ... );
     }

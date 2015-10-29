@@ -20,6 +20,9 @@
 #include <combine/datum.hpp>
 
 
+
+
+
 namespace Combine
 { 
 
@@ -29,7 +32,7 @@ namespace Combine
 
     template< typename A >
     constexpr auto
-    operator()( A&& a ) 
+    operator()( A&& a ) const
     {
       return partialL( F(), forward< A >( a ));
     }
@@ -109,7 +112,7 @@ namespace Combine
 
     template< typename A, typename B, typename C >
     constexpr auto
-    operator ()( A&& a, B&& b, C&& c )
+    operator ()( A&& a, B&& b, C&& c ) const
     {
       return F{}( F{}( forward<A>( a ), 
 		       forward<B>( b )),
@@ -118,7 +121,7 @@ namespace Combine
 
     template< typename A, typename B, typename C, typename D, typename ... Es >
     constexpr auto
-    operator()( A&& a, B&& b, C&& c, D&& d, Es&& ... es )
+    operator()( A&& a, B&& b, C&& c, D&& d, Es&& ... es ) const
     {
       return aux( Datum< bool, count_types< A, B, C, D, Es ... >() % 2 == 0 >{},
 		  forward<A>( a ), forward<B>( b ), forward<C>( c ), forward<D>( d ),
@@ -129,7 +132,7 @@ namespace Combine
 
     template< typename ... Xs >
     constexpr auto
-    aux( True, Xs&& ... xs )
+    aux( True, Xs&& ... xs ) const
     {
       return aux_even( 
 	gen_Idx< count_types< Xs ... >()/2 >(),
@@ -138,7 +141,7 @@ namespace Combine
 
     template< typename X, typename ... Xs >
     constexpr auto
-    aux( False, X&& x, Xs&& ... xs )
+    aux( False, X&& x, Xs&& ... xs ) const
     {
       return F{}( forward<X>( x ), 
 		  aux_even( gen_Idx< count_types< Xs ... >()/2 >(), 
@@ -147,7 +150,7 @@ namespace Combine
 
     template< size_t ... indices, template< typename ... > class C, typename ... Xs >
     constexpr auto
-    aux_even( Idx< indices ... >, C<Xs...>&& xs )
+    aux_even( Idx< indices ... >, C<Xs...>&& xs ) const
     {
       return F{}( F{}( get< indices >( xs ) ... ),
 		  F{}( get< indices+count_types<Xs ... >()/2 >( xs ) ... ));

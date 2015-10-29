@@ -51,14 +51,14 @@ namespace Combine
 
     template< typename ... Xs >
     constexpr auto 
-    operator()( Xs&& ... xs )
+    operator()( Xs&& ... xs ) const
     {
       return Kernel{}( data_type::first, data_type::second, forward<Xs>( xs ) ... );
     }
 
     template< typename ... Xs >
     constexpr auto 
-    operator()( const Xs& ... xs )
+    operator()( const Xs& ... xs ) const
     {
       return Kernel{}( data_type::first, data_type::second, xs ... );
     }

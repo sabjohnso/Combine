@@ -74,7 +74,7 @@ namespace Combine
     constexpr
     PartialR( G&& g, Ys&& ... ys )
       : f( std::forward< G >( g ))
-      , Xs( std::forward< Ys >( ys ) ... )
+      , xs( std::forward< Ys >( ys ) ... )
     {}
 
     template< typename ... Ys >

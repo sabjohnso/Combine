@@ -25,7 +25,7 @@ struct AddKernel
 {
   template< typename A, typename B >
   constexpr auto
-  operator ()( A&& a, B&& b )
+  operator ()( A&& a, B&& b ) const
   {
     return a+b;
   }

@@ -51,7 +51,7 @@ namespace Combine
       
       template< typename ... Xs >
       constexpr
-      context( Xs&& ... xs ) : C<X,n>({ forward<Xs>( xs ) ... }){}
+      context( Xs&& ... xs ) : C<X,n>{{ forward<Xs>( xs ) ... }}{}
       using C<X,n>::C;
     };
     

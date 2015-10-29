@@ -11,7 +11,7 @@ struct Square
 {
   template< typename X > 
   constexpr auto 
-  operator()( X&& x )
+  operator()( X&& x ) const
   {
     return x*x;
   } 

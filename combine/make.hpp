@@ -62,7 +62,7 @@ namespace Combine
     {
       static_assert( is_homogeneous< X, Xs ... >::value, 
 		     "The arguments to the MakeXn constructor must all have the same type." );	
-      return R{ std::forward< X >( x ), std::forward< Xs >( xs ) ... };
+      return R{{std::forward< X >( x ), std::forward< Xs >( xs ) ... }};
     }
   }; // end of struct MakeXn
 
