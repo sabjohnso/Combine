@@ -3,7 +3,7 @@ compiler: g++
 
 before_script:
   - mkdir build
-  - cd build && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-4.9 .. && make
+  - cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
   
 script:
   - cd build && make test
