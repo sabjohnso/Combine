@@ -1,15 +1,16 @@
+sudo: required
 language: cpp
+compiler: g++
 
-compiler:
-  - g++
-  - clang++
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install g++-4.9
 
-script:
+before_script:
   - mkdir build
-  - cd build
-  - cmake -CMAKE_BUILD_TYPE=Release ..
-  - make && make test
+  - cd build && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-4.9 .. && make
   
-os:
-  - linux
-  - osx
+script:
+  - cd build && make test
+  
+os: linux
