@@ -1,10 +1,6 @@
 language: cpp
 compiler: g++
 
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get -qq install g++-4.9
-
 before_script:
   - mkdir build
   - cd build && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-4.9 .. && make
